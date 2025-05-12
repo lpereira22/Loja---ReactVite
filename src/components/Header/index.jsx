@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Logo, Menu } from "./styles";
+import { Link } from "react-router-dom";
 
 const Header = () =>{ //Area function
     return(
@@ -12,7 +13,7 @@ const Header = () =>{ //Area function
                     <li><span>Leilão</span></li>
                     <li><span>Compras</span></li>
                     <li><span>Regras</span></li>
-                    <li id="cadastro"><span>Cadastro/Login</span></li>
+                    <li id="cadastro"><span><Link to="/Login">Cadastro/Login</Link></span></li>
                 </ul>
             </Menu>
             

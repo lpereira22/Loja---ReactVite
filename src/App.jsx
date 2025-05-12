@@ -1,20 +1,16 @@
-import Banner from "./components/Banner";
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import Login from './pages/Login';
 
-import Global from "./styles/Global.js";
-
-function App(){
+function app(){
     return(
-        <div>
-            <Header/>
-            <Global/>
-            <Banner/>
-            <Main/>
-            <Footer/>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+            </Routes>
+        </Router>
     );
 }
 
-export default App;
+export default app;
