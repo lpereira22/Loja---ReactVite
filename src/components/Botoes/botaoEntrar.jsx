@@ -1,14 +1,11 @@
 import React from "react";
 import { BotaoEntrarStyles } from './botaoEntrarStyles'
 
-const BotaoEntrar = () =>{
+const BotaoEntrar = ({Titulo, onClick}) =>{
     return(
         <BotaoEntrarStyles>
-            <div>
-                <h3>Entrar</h3>
-            </div>
-        </BotaoEntrarStyles>
-        
+                <button onClick={onClick}>{Titulo}</button>
+        </BotaoEntrarStyles>    
     )
 }
 

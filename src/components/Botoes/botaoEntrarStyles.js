@@ -1,18 +1,15 @@
 import styled from "styled-components";
 
 export const BotaoEntrarStyles = styled.div`
-    div{
-        background-color: green;
+    
         border: 1px solid black;
-        border-radius: 5px;
-        padding: 0.5rem;
+        border-radius: 5px;   
         width: 10em;
-        
-        
 
-
-        h3{
-            text-align: center;
+        button{
+            background-color: green ;
+            padding: 0.5rem;
+            cursor: pointer;
+            width: 100%;
         }
-    }
 `
