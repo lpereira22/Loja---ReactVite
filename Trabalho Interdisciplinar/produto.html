@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes da Obra</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="produto.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light header"> <!-- Adicionando a navbar -->
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="Adicionar Logo" alt="LancyArt" class="logo"> <!-- Logo adicionada -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto"> <!-- Alinhando os itens à direita -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                      
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Login | Cadastrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sobre Nós</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+  <div class="container my-5">
+    <h2 id="titulo-obra" class="mb-4">Carregando...</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <img id="imagem-obra" src="" class="img-fluid rounded" alt="Imagem da obra" />
+      </div>
+      <div class="col-md-6">
+        <p id="descricao-obra">Aguarde...</p>
+
+        <!-- Exibir o tempo restante -->
+        <div id="tempo-restante" class="mb-3 alert alert-info">
+          Tempo restante: <span id="contador">--:--</span>
+        </div>
+
+        <form id="form-lance">
+          <div class="mb-3">
+            <label for="valorLance" class="form-label">Seu lance (R$)</label>
+            <input type="number" class="form-control" id="valorLance" required />
+          </div>
+          <button type="submit" class="btn btn-success">Confirmar Lance</button>
+        </form>
+
+        <!-- Exibir os últimos lances -->
+        <div id="ultimos-lances" class="mt-4">
+          <h5>Últimos lances:</h5>
+          <ul id="lista-lances" class="list-group"></ul>
+        </div>
+
+        <div id="mensagem" class="mt-3"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+
+    // Tempo fictício 
+    let tempoRestante = 3000;
+
+    async function carregarProduto() {
+      try {
+        const response = await fetch("produtos.json");
+        const dados = await response.json();
+
+        if (!dados[id]) {
+          document.body.innerHTML = "<h3 class='text-center mt-5'>Produto não encontrado</h3>";
+          return;
+        }
+
+        const produto = dados[id];
+        document.getElementById("titulo-obra").textContent = produto.titulo;
+        document.getElementById("descricao-obra").textContent = produto.descricao;
+        document.getElementById("imagem-obra").src = produto.imagem;
+
+        carregarLances();
+        iniciarContador();
+
+      } catch (error) {
+        console.error("Erro ao carregar produto:", error);
+        document.body.innerHTML = "<h3 class='text-center mt-5'>Erro ao carregar o produto.</h3>";
+      }
+    }
+
+    // Mostrar últimos lances do localStorage 
+    function carregarLances() {
+      const lances = JSON.parse(localStorage.getItem("lancesDetalhados")) || {};
+      const lancesProduto = lances[id] || [];
+
+      const listaLances = document.getElementById("lista-lances");
+      listaLances.innerHTML = "";
+
+      if (lancesProduto.length === 0) {
+        listaLances.innerHTML = "<li class='list-group-item'>Nenhum lance registrado ainda.</li>";
+        return;
+      }
+
+      // Mostrar lances do mais recente para o mais antigo
+      lancesProduto.slice().reverse().forEach(lance => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = `R$${lance.valor} - em ${new Date(lance.data).toLocaleString()}`;
+        listaLances.appendChild(li);
+      });
+    }
+
+    // Iniciar o contador regressivo
+   function iniciarContador() {
+  const contadorEl = document.getElementById("contador");
+  const intervalo = setInterval(() => {
+    if (tempoRestante <= 0) {
+      clearInterval(intervalo);
+      contadorEl.textContent = "Tempo esgotado!";
+      document.getElementById("form-lance").querySelector("button").disabled = true;
+
+      // Redirecionar para pagamento
+      const lances = JSON.parse(localStorage.getItem("lancesDetalhados")) || {};
+      const lancesProduto = lances[id] || [];
+
+      if (lancesProduto.length > 0) {
+        const maiorLance = lancesProduto[lancesProduto.length - 1].valor;
+        window.location.href = `pagamento.html?id=${id}&valor=${maiorLance}`;
+      } else {
+        document.getElementById("mensagem").innerHTML = `
+          <div class="alert alert-danger mt-3">Leilão encerrado sem lances registrados.</div>
+        `;
+      }
+
+      return;
+    }
+
+    const minutos = Math.floor(tempoRestante / 60);
+    const segundos = tempoRestante % 60;
+    contadorEl.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    tempoRestante--;
+  }, 1000);
+}
+
+    carregarProduto();
+
+    // Evento para registrar novo lance
+    document.getElementById("form-lance").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if(tempoRestante <= 0){
+        alert("O tempo para lances acabou!");
+        return;
+      }
+
+      const valor = document.getElementById("valorLance").value;
+      if (!valor || valor <= 0) return alert("Digite um valor válido.");
+
+      // Usar localStorage para armazenar lances detalhados (valor + data)
+      const lances = JSON.parse(localStorage.getItem("lancesDetalhados")) || {};
+      const lancesProduto = lances[id] || [];
+
+      // Verificar se o lance é maior que o último registrado
+      const ultimoLance = lancesProduto.length > 0 ? Number(lancesProduto[lancesProduto.length - 1].valor) : 0;
+      if (Number(valor) <= ultimoLance) {
+        document.getElementById("mensagem").innerHTML = `<div class="alert alert-warning">Seu lance deve ser maior que R$${ultimoLance}.</div>`;
+        return;
+      }
+
+      // Adicionar o lance com timestamp
+      lancesProduto.push({ valor: valor, data: new Date().toISOString() });
+      lances[id] = lancesProduto;
+      localStorage.setItem("lancesDetalhados", JSON.stringify(lances));
+
+      document.getElementById("mensagem").innerHTML = `<div class="alert alert-success">Lance de R$${valor} registrado com sucesso!</div>`;
+      document.getElementById("valorLance").value = "";
+
+      carregarLances();
+    });
+  </script>
+  
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; Leilão TI</p>
+        </div>
+
+    </div> <!-- Fim do Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+</body>
+</html>

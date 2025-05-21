@@ -1,0 +1,36 @@
+
+  {
+  "1": {
+    "titulo": "Escultura em Mármore",
+    "descricao": "Esculpida com precisão e sensibilidade, esta obra em mármore branco retrata a contenção emocional como forma de resistência. A superfície polida contrasta com os traços rígidos do rosto, evocando a tensão entre o que se sente e o que se mostra.",
+    "imagem": "Assets/E1.jpg"
+  },
+  "2": {
+    "titulo": "Mãe e Filha 2",
+    "descricao": "Uma representação terna e poderosa da conexão entre gerações. As formas entrelaçadas da mãe e da filha fluem como um só corpo, simbolizando proteção, herança emocional e o ciclo eterno do cuidado.",
+    "imagem": "Assets/E2.jpg"
+  },
+  "3": {
+    "titulo": "Bailarina de Gesso Italiano",
+    "descricao": "Neste trabalho, o artista experimenta formas geométricas sobrepostas que se fragmentam e se unem, criando uma paisagem visual de caos e harmonia. A obra convida o espectador a encontrar significado na abstração.",
+    "imagem": "Assets/E3.jpg"
+  },
+
+ "4": {
+    "titulo": "Princesa Nalla",
+    "descricao": "A textura densa e os traços orgânicos desta peça remetem à força da natureza em constante transformação. Cada linha parece pulsar com vida, sugerindo movimento, crescimento e instabilidade.",
+    "imagem": "Assets/E4.jpg"
+  },
+
+  "5":{
+    "titulo": "Galos de Aço",
+    "descricao": "Esta obra brinca com a dualidade entre luz e sombra, material e vazio. Ao explorar os espaços negativos com tanta intenção quanto os positivos, o artista questiona nossa percepção do que é presença.",
+    "imagem": "Assets/E5.jpg"
+  },
+    "6":{
+    "titulo": "Escultura Bartolomeu",
+    "descricao": "Com um olhar contemplativo sobre a condição humana, esta escultura transmite uma sensação de isolamento sereno. A postura introspectiva da figura esculpida convida o público à autorreflexão.",
+    "imagem": "Assets/E6.jpg"
+    }
+}
+

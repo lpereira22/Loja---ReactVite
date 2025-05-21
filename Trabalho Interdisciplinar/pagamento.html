@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagamento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+      <h2 class="text-center mb-4">Finalizar Pagamento</h2>
+
+      <div id="infoPagamento" class="mb-4 text-center">
+        Carregando informações...
+      </div>
+
+      <!-- Formulário de dados pessoais -->
+      <form id="formPagamento">
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome completo</label>
+          <input type="text" class="form-control" id="nome" required />
+        </div>
+        <div class="mb-3">
+          <label for="cpf" class="form-label">CPF</label>
+          <input type="text" class="form-control" id="cpf" required placeholder="000.000.000-00"/>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-mail</label>
+          <input type="email" class="form-control" id="email" required />
+        </div>
+        <div class="mb-4">
+          <label for="telefone" class="form-label">Telefone</label>
+          <input type="tel" class="form-control" id="telefone" required placeholder="(11) 91234-5678"/>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg">Pagar agora</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const valor = urlParams.get("valor");
+
+  async function carregarProduto() {
+    try {
+      const arquivos = [
+        "Produto_oleo_sobre_tela.json",
+        "Produto_Variaveis.json",
+        "produto.json"
+      ];
+
+      let produto = null;
+
+      for (const arquivo of arquivos) {
+        const response = await fetch(arquivo);
+        const dados = await response.json();
+        if (dados[id]) {
+          produto = dados[id];
+          break; // Produto encontrado, para de buscar
+        }
+      }
+
+      if (!produto) {
+        document.getElementById("infoPagamento").innerHTML =
+          `<div class="alert alert-danger">Produto não encontrado.</div>`;
+        return;
+      }
+
+      document.getElementById("infoPagamento").innerHTML = `
+        <p><strong>Produto:</strong> ${produto.titulo}</p>
+        <p><strong>Valor do lance vencedor:</strong> R$${valor}</p>
+      `;
+    } catch (err) {
+      console.error("Erro ao carregar produto:", err);
+      document.getElementById("infoPagamento").innerHTML =
+        `<div class="alert alert-danger">Erro ao carregar os dados.</div>`;
+    }
+  }
+
+  document.getElementById("formPagamento").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const cpf = document.getElementById("cpf").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+
+    if (!nome || !cpf || !email || !telefone) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    alert(`Obrigado, ${nome}! Pagamento de R$${valor} confirmado com sucesso.`);
+
+    // Redireciona após confirmação
+    window.location.href = "Catalogo.html";
+  });
+
+  carregarProduto();
+</script>
+
+</body>
+</html>

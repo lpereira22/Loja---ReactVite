@@ -1,0 +1,34 @@
+{
+  "1": {
+    "titulo": "TLow Emotion 20x77cm",
+    "descricao": "Pintura com precisão e sensibilidade, esta obra em mármore branco retrata a contenção emocional como forma de resistência. A superfície polida contrasta com os traços rígidos do rosto, evocando a tensão entre o que se sente e o que se mostra.",
+    "imagem": "Assets/A1.jpg"
+  },
+  "2": {
+    "titulo": "Aquarys 50x50cm",
+    "descricao": "Uma representação terna e poderosa da conexão entre gerações. As formas entrelaçadas da mãe e da filha fluem como um só corpo, simbolizando proteção, herança emocional e o ciclo eterno do cuidado.",
+    "imagem": "Assets/A2.jpg"
+  },
+  "3": {
+    "titulo": "Ana Belle 177x140 cm.",
+    "descricao": "Neste trabalho, o artista experimenta formas geométricas sobrepostas que se fragmentam e se unem, criando uma paisagem visual de caos e harmonia. A obra convida o espectador a encontrar significado na abstração.",
+    "imagem": "Assets/A3.jpg"
+  },
+
+ "4": {
+    "titulo": "Sô Lorival e  Gallardo  85x96cm",
+    "descricao": "A textura densa e os traços orgânicos desta peça remetem à força da natureza em constante transformação. Cada linha parece pulsar com vida, sugerindo movimento, crescimento e instabilidade.",
+    "imagem": "Assets/A4.jpg"
+  },
+
+  "5":{
+    "titulo": "O Grito vBart 75x75cm",
+    "descricao": "Esta obra brinca com a dualidade entre luz e sombra, material e vazio. Ao explorar os espaços negativos com tanta intenção quanto os positivos, o artista questiona nossa percepção do que é presença.",
+    "imagem": "Assets/A5.jpg"
+  },
+    "6":{
+    "titulo": "O Messias",
+    "descricao": "Com um olhar contemplativo sobre a condição humana, esta pintura transmite uma sensação de isolamento sereno. A postura introspectiva da figura pintada convida o público à autorreflexão.",
+    "imagem": "Assets/A6.jpg"
+    }
+}

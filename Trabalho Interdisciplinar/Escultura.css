@@ -1,0 +1,86 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+/* Estilos da Navbar  cabeçalho*/
+.header {
+    background-color: #f6be08;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    margin-right: 15px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFA500;
+}
+
+.logo {
+    height: 100px; /* Ajuste o tamanho da logo conforme necessário */
+    width: auto;
+}
+
+/* Estilos do Rodapé */
+.footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Ajustando o espaçamento no container */
+.content {
+    padding: 20px;
+}
+
+.row {
+    justify-content: center;
+}
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.dar-lance {
+    background-color: #dc3545;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.dar-lance:hover {
+    background-color: #bb2d3b;
+}
+
